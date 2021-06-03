@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.second.dao.TeacherDao">
+    <resultMap id="BaseResultMap" type="com.example.second.entity.Teacher">
+        <id column="uid" property="uid" jdbcType="BIGINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="age" property="age" jdbcType="INTEGER"/>
+        <result column="sex" property="sex" jdbcType="VARCHAR"/>
+        <result column="date1" property="date1" jdbcType="DATE"/>
+        <result column="date2" property="date2" jdbcType="TIME"/>
+        <result column="state" property="state" jdbcType="BOOLEAN"/>
+        <result column="interview" property="interview" jdbcType="VARCHAR"/>
+        <result column="major" property="major" jdbcType="VARCHAR"/>
+        <result column="hobby" property="hobby" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="salary" property="salary" jdbcType="INTEGER"/>
+        <result column="degree" property="degree" jdbcType="DOUBLE"/>
+        <result column="mark" property="mark" jdbcType="DOUBLE"/>
+        <result column="color" property="color" jdbcType="VARCHAR"/>
+        <result column="email" property="email" jdbcType="VARCHAR"/>
+        <result column="emailStyle" property="emailStyle" jdbcType="VARCHAR"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="stature" property="stature" jdbcType="INTEGER"/>
+        <result column="weight" property="weight" jdbcType="INTEGER"/>
+        <result column="submitLink" property="submitLink" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="introduce" property="introduce" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        uid, name, age, sex, date1, date2, state, interview, major,hobby, address, salary, degree, mark, color, email, emailStyle, code, stature,weight,submitLink,status,introduce
+    </sql>
+
+    <select id="findAllTeachers" resultType="com.example.second.entity.Teacher">
+        select * from teacher
+    </select>
+
+    <select id="findTeacherByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from teacher where name = #{name,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteTeachersByIds">
+        delete from teacher where uid in
+        <foreach collection="ids" item="id" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <select id="getCountTeachers" resultType="java.lang.Integer">
+        select count(uid) as count from teacher
+    </select>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteTeacherById" parameterType="java.lang.Long">
+        delete from teacher
+        where uid = #{uid,jdbcType=BIGINT}
+    </delete>
+
+    <insert id="insert" parameterType="com.example.second.entity.Teacher">
+        insert into teacher (uid, name, age, sex, date1, date2, state, interview, major, hobby, address, salary, degree, mark, color, email, emailStyle,code, stature, weight, submitLink, status,introduce)
+        values (#{uid,jdbcType=BIGINT},
+                #{name,jdbcType=VARCHAR},
+                #{age,jdbcType=INTEGER},
+                #{sex,jdbcType=VARCHAR},
+                #{date1,jdbcType=DATE},
+                #{date2,jdbcType=TIME},
+                #{state,jdbcType=BOOLEAN},
+                #{interview,jdbcType=VARCHAR},
+                #{major,jdbcType=VARCHAR},
+                #{hobby,jdbcType=VARCHAR},
+                #{address,jdbcType=VARCHAR},
+                #{salary,jdbcType=INTEGER},
+                #{degree,jdbcType=DOUBLE},
+                #{mark,jdbcType=DOUBLE},
+                #{color,jdbcType=VARCHAR},
+                #{email,jdbcType=VARCHAR},
+                #{emailStyle,jdbcType=VARCHAR},
+                #{code,jdbcType=VARCHAR},
+                #{stature,jdbcType=INTEGER},
+                #{weight,jdbcType=INTEGER},
+                #{submitLink,jdbcType=VARCHAR},
+                #{status,jdbcType=VARCHAR},
+                #{introduce,jdbcType=VARCHAR})
+    </insert>
+    <insert id="addTeacher" parameterType="com.example.second.entity.Teacher">
+        insert into teacher
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                uid,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="age != null">
+                age,
+            </if>
+            <if test="sex != null">
+                sex,
+            </if>
+            <if test="date1 != null">
+                date1,
+            </if>
+            <if test="date2 != null">
+                date2,
+            </if>
+            <if test="state != null">
+                state,
+            </if>
+            <if test="interview != null">
+                interview,
+            </if>
+            <if test="major != null">
+                major,
+            </if>
+            <if test="hobby != null">
+                hobby,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="salary != null">
+                salary,
+            </if>
+            <if test="degree != null">
+                degree,
+            </if>
+            <if test="mark != null">
+                mark,
+            </if>
+            <if test="color != null">
+                color,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="emailStyle != null">
+                emailStyle,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="stature != null">
+                stature,
+            </if>
+            <if test="weight != null">
+                weight,
+            </if>
+            <if test="submitLink != null">
+                submitLink,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="introduce != null">
+                introduce,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="uid != null">
+                #{uid,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="date1 != null">
+                #{date1,jdbcType=DATE},
+            </if>
+            <if test="date2 != null">
+                #{date2,jdbcType=TIME},
+            </if>
+            <if test="state != null">
+                #{state,jdbcType=BOOLEAN},
+            </if>
+            <if test="interview != null">
+                #{interview,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                #{salary,jdbcType=INTEGER},
+            </if>
+            <if test="degree != null">
+                #{degree,jdbcType=DOUBLE},
+            </if>
+            <if test="mark != null">
+                #{mark,jdbcType=DOUBLE},
+            </if>
+            <if test="color != null">
+                #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="emailStyle != null">
+                #{emailStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="stature != null">
+                #{stature,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="submitLink != null">
+                #{submitLink,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="introduce != null">
+                #{introduce,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateTeacher" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        <set>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null">
+                age = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="sex != null">
+                sex = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="date1 != null">
+                date1 = #{date1,jdbcType=DATE},
+            </if>
+            <if test="date2 != null">
+                date2 = #{date2,jdbcType=TIME},
+            </if>
+            <if test="state != null">
+                state = #{state,jdbcType=BOOLEAN},
+            </if>
+            <if test="interview != null">
+                interview = #{interview,jdbcType=VARCHAR},
+            </if>
+            <if test="major != null">
+                major = #{major,jdbcType=VARCHAR},
+            </if>
+            <if test="hobby != null">
+                hobby = #{hobby,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                salary = #{salary,jdbcType=INTEGER},
+            </if>
+            <if test="degree != null">
+                degree = #{degree,jdbcType=DOUBLE},
+            </if>
+            <if test="mark != null">
+                mark = #{mark,jdbcType=DOUBLE},
+            </if>
+            <if test="color != null">
+                color = #{color,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="emailStyle != null">
+                emailStyle = #{emailStyle,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                code = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="stature != null">
+                stature = #{stature,jdbcType=INTEGER},
+            </if>
+            <if test="weight != null">
+                weight = #{weight,jdbcType=INTEGER},
+            </if>
+            <if test="submitLink != null">
+                submitLink = #{submitLink,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="introduce != null">
+                introduce = #{introduce,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.second.entity.Teacher">
+        update teacher
+        set name = #{name,jdbcType=VARCHAR},
+        age = #{age,jdbcType=INTEGER},
+        sex = #{sex,jdbcType=VARCHAR},
+        date1 = #{date1,jdbcType=DATE},
+        date2 = #{date2,jdbcType=TIME},
+        state = #{state,jdbcType=BOOLEAN},
+        interview = #{interview,jdbcType=VARCHAR},
+        major = #{major,jdbcType=VARCHAR},
+        hobby = #{hobby,jdbcType=VARCHAR},
+        address = #{address,jdbcType=VARCHAR},
+        salary = #{salary,jdbcType=INTEGER},
+        degree = #{degree,jdbcType=DOUBLE},
+        mark = #{mark,jdbcType=DOUBLE},
+        color = #{color,jdbcType=VARCHAR},
+        email = #{email,jdbcType=VARCHAR},
+        emailStyle = #{emailStyle,jdbcType=VARCHAR},
+        code = #{code,jdbcType=VARCHAR},
+        stature = #{stature,jdbcType=INTEGER},
+        weight = #{weight,jdbcType=INTEGER},
+        submitLink = #{submitLink,jdbcType=VARCHAR},
+        status = #{status,jdbcType=VARCHAR},
+        introduce = #{introduce,jdbcType=VARCHAR}
+        where uid = #{uid,jdbcType=BIGINT}
+    </update>
+</mapper>
